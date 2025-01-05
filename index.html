@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievement Reorder Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Train One&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1A1A1A;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: scale(0.8);
+            transform-origin: top;
+        }
+
+        /* Style for the first letter */
+        .first-letter {
+            color: #3498db;
+            font-weight: bold;
+            font-family: 'Train One', sans-serif;
+        }
+
+        /* Style for the second letter */
+        .second-letter {
+            color: #C59401;
+            font-weight: bold;
+            font-family: 'Train One', sans-serif;
+        }
+
+        /* Styling for the title text with gradient */
+        .gradient-title {
+            font-weight: bold;
+            background: linear-gradient(to bottom, #eeeeee, #b4b4b4);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.10);
+        }
+        /* Styling for the main title */
+        .main-title {
+            font-size: 3.0em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #C8C8C8;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: rgba(22, 22, 22, 22);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* Save Button style */
+        .button {
+            margin: 20px 0;
+            padding: 12px 25px;
+            background-color: #16a085;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #1abc9c;
+        }
+
+        /* Readme Button */
+        .readme-button {
+            background-color: #3498db;
+            padding: 7px 7px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.0em;
+            transition: background-color 0.3s ease;
+        }
+
+        .readme-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Modal (background overlay) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 199; /* Make sure it sits above the page content */
+            top: 0;
+            left: 1;
+            right: 1;
+            bottom: 1;
+            width: 125%;
+            height: 119%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            padding-top: 50px;
+        }
+
+        /* Modal Content (the actual box)*/
+        .modal-content {
+            background-color: #2c3e50;
+            color: white;
+            margin: 5% auto; /* Adjust for centering */
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 710px;
+            font-size: 1.2em;
+            text-align: left;
+            position: relative; /* Allow close button positioning */
+        }
+
+        .modal-header {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Close Button Style */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Drag and Drop Area */
+        .drag-area {
+            width: 100%;
+            padding: 120px;
+            border: 2px dashed #f1efec;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .drag-area .file-info {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #bdc3c7;
+            font-style: italic;
+        }
+
+        /* Highlight Text Style */
+        .highlight {
+            background-color: #1A1A1A;
+            color: white;
+            padding: 0 7px;
+            border-radius: 5px;
+        }
+
+        /* Hidden file input */
+        #fileInput {
+            display: none;
+        }
+
+        /* Achievement List Styling */
+        #sortable {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* List Item Styling */
+        #sortable li {
+            padding: 8px;
+            background-color: #34495e;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: grab;
+            font-size: 1.2em;
+            line-height: 1.2;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        #sortable li:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Hidden Items */
+        .hidden {
+            display: none;
+        }
+
+        /* Save Button */
+        #saveButton {
+            display: none;
+        }
+
+        /* Reminder Text Styling */
+        .reminder {
+            color: #C59401;
+            font-size: 1.0em;
+            font-weight: none;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Default cursor style when hovering over draggable items */
+        #sortable li {
+            cursor: grab; /* Default cursor for draggable items */
+        }
+
+        /* When dragging an item, change cursor to grabbing */
+        #sortable li:active {
+            cursor: grabbing; /* Change to 'grabbing' cursor when the item is actively being dragged */
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #c9c9c9;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="main-title">
+        <span class="first-letter">A</span><span class="gradient-title">chievement
+        <span class="second-letter">R</span>eorder Tool</span>
+    </h2>
+
+    <!-- Reminder Message -->
+    <div class="reminder">
+        <p>Remember to back up the original file before making any changes!</p>
+    </div>
+
+    <!-- Readme Button -->
+    <button class="readme-button" id="readmeButton">Readme</button>
+
+    <!-- Drag and Drop Area -->
+    <div class="drag-area" id="dragArea">
+        Drag and drop <span class="highlight">[gameid]-User.txt</span> found inside <span class="highlight">RACache/Data/</span>
+        <div class="file-info">or click to select a file</div>
+    </div>
+
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput" accept=".txt">
+
+    <!-- Button initially hidden -->
+    <button class="button" id="saveButton" onclick="saveFile()">Save File</button>
+
+    <ul id="sortable">
+        <!-- Achievement list will appear here -->
+    </ul>
+</div>
+
+<!-- Readme Modal -->
+<div id="readmeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">Readme</div>
+        <p>
+            This Achievement Reorder Tool allows you to reorder the achievements in a .txt file. Simply drag and drop your file, and you will be able to rearrange the achievements before saving the changes back to the file.
+        </p>
+        <p><strong>Steps:</strong></p>
+        <ul>
+            <li>Drag and drop your achievement file or select it manually.</li>
+            <li>Reorder the achievements by dragging them.</li>
+            <li>Click "Save File" to download the updated [gameid-User].txt file.</li>
+            <li>Replace the original file in the RACache/Data directory with the reordered version.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    let currentFileName = ""; // Store the file name
+
+    // Handle drag over event
+    document.getElementById('dragArea').addEventListener('dragover', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        document.getElementById('dragArea').style.backgroundColor = '#2c3e50';
+    });
+
+    // Handle drag leave event
+    document.getElementById('dragArea').addEventListener('dragleave', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        document.getElementById('dragArea').style.backgroundColor = '#34495e';
+    });
+
+    // Handle drop event
+    document.getElementById('dragArea').addEventListener('drop', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const file = event.dataTransfer.files[0]; // Get the first file dropped by the user
+
+        if (file && file.name.endsWith('.txt')) {
+            handleFile(file);
+            currentFileName = file.name; // Store the uploaded file name
+            document.getElementById('saveButton').style.display = 'block'; // Show the save button
+            document.getElementById('dragArea').style.display = 'none'; // Hide the drag area
+        } else {
+            alert('Please upload a valid .txt file.');
+        }
+
+        // Reset background after drop
+        document.getElementById('dragArea').style.backgroundColor = '#34495e';
+    });
+
+        // Trigger file input click when drag area is clicked
+        document.getElementById('dragArea').addEventListener('click', function() {
+        document.getElementById('fileInput').click();
+    });
+
+       // Handle file selection from input
+       document.getElementById('fileInput').addEventListener('change', function(event) {
+          const file = event.target.files[0];
+
+        if (file && file.name.endsWith('.txt')) {
+            handleFile(file);
+            currentFileName = file.name; // Store the uploaded file name
+            document.getElementById('saveButton').style.display = 'block'; // Show the save button
+            document.getElementById('dragArea').style.display = 'none'; // Hide the drag area after selecting the file
+        } else {
+            alert('Please upload a valid .txt file.');
+        }
+    });
+
+    // Handle file content and populate the list
+    function handleFile(file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const text = e.target.result;
+            const achievements = text.split('\n').filter(line => line.trim() !== "");
+            const sortableList = document.getElementById('sortable');
+            sortableList.innerHTML = '';
+
+        // Title for the achievements list
+        const title = document.createElement('h3');
+        title.textContent = 'Achievements List';  // Set the title text
+        sortableList.parentElement.insertBefore(title, sortableList); // Insert the title above the list
+
+            achievements.forEach(achievement => {
+                const parts = achievement.split(':'); // Each line is split at the colon (:) into an array of parts
+                if (parts[0].startsWith("111000")) { // ensures the line is a valid achievement by checking if the first part begins with 111000
+                    if (parts.length >= 3) {
+                        const readablePart = parts.slice(3).join(':').split(':::')[0]; // Remove everything after ":::"
+                        const li = document.createElement('li');
+                        li.textContent = readablePart.trim();
+                        li.setAttribute('data-original', achievement.trim());
+                        li.setAttribute('draggable', 'true');  // Make it draggable
+                        sortableList.appendChild(li);
+
+                        // Add event listeners for drag events
+                        li.addEventListener('dragstart', function() {
+                            document.body.style.cursor = 'grabbing'; // Change cursor when dragging starts
+                        });
+
+                        li.addEventListener('dragend', function() {
+                            document.body.style.cursor = 'default'; // Reset cursor when dragging ends
+                        });
+                    }
+                } else {
+                    const li = document.createElement('li');
+                    li.setAttribute('data-original', achievement.trim());
+                    li.classList.add('hidden');
+                    sortableList.appendChild(li);
+                }
+            });
+
+            // Make the list sortable
+            new Sortable(sortableList, {
+                animation: 150,
+                ghostClass: 'sortable-ghost'
+            });
+        };
+
+        reader.readAsText(file);
+    }
+
+    // Save the reordered list as a new file
+    function saveFile() {
+        const listItems = document.querySelectorAll('#sortable li');
+        const achievements = [];
+
+        listItems.forEach(item => {
+            achievements.push(item.getAttribute('data-original'));
+        });
+
+        const blob = new Blob([achievements.join('\n')], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+
+        // Use the original filename for saving
+        const saveFileName = currentFileName || 'reordered_achievements.txt'; // Default to 'reordered_achievements.txt' if no file name
+        a.download = saveFileName;
+
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    // Show the Readme Modal
+    document.getElementById('readmeButton').addEventListener('click', function() {
+        document.getElementById('readmeModal').style.display = 'block';
+    });
+
+    // Close the Readme Modal
+    document.querySelector('.close').addEventListener('click', function() {
+        document.getElementById('readmeModal').style.display = 'none';
+    });
+
+    // Close the modal if clicked outside of the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target === document.getElementById('readmeModal')) {
+            document.getElementById('readmeModal').style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
