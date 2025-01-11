@@ -1,2 +1,5 @@
 * Version 0.1
  - Initial public release.
+* Version 0.2
+ - Improved the achievement text parsing to remove unnecessary parts (conditions, modifiers).
+ - Display only relevant achievement title and description.
