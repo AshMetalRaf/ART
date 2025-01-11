@@ -382,9 +382,10 @@
                 const parts = achievement.split(':'); // Each line is split at the colon (:) into an array of parts
                 if (parts[0].startsWith("111000")) { // ensures the line is a valid achievement by checking if the first part begins with 111000
                     if (parts.length >= 3) {
-                        const readablePart = parts.slice(3).join(':').split(':::')[0]; // Remove everything after ":::"
+                        const readablePart = parts.slice(2).join(':').split(':::')[0]; // Remove everything after ":::"
+                        const cleanReadablePart = readablePart.split('":')[1]?.trim(); // Remove the prefix before the actual text
                         const li = document.createElement('li');
-                        li.textContent = readablePart.trim();
+                        li.textContent = cleanReadablePart || readablePart.trim();
                         li.setAttribute('data-original', achievement.trim());
                         li.setAttribute('draggable', 'true');  // Make it draggable
                         sortableList.appendChild(li);
