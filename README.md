@@ -22,8 +22,8 @@ This project is intended for developers who are familiar with RetroAchievements 
 ---
 
 ## Features  
-- Reorder achievements from the assets list of RetroAchievements files.
-- Displays only the achievement assets, not the full text, for easier management.  
+- Reorder achievements and leaderboards from the assets list of RetroAchievements files.
+- Displays only the the necessary assets, not the full text, for easier management.  
 - Simple drag-and-drop interface for quick file uploading.
 - Allows saving the reordered list as a new .txt file for easy integration with your project. 
 
