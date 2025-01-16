@@ -1,5 +1,13 @@
-* Version 0.1
+* Version 0.1 (2025-1-7)
  - Initial public release.
-* Version 0.2
+* Version 0.2 (2025-1-11)
  - Improved the achievement text parsing to remove unnecessary parts (conditions, modifiers).
  - Display only relevant achievement title and description.
+* Version 0.3 (2025-1-16)
+ File Processing and Display Updates:
+ - Added a dedicated list for leaderboards.
+ - Implemented logic to separate achievements and leaderboards into their respective lists.
+ - Reorganized layout for a more intuitive file upload and tab navigation experience.
+ - The exported file now includes reordered achievements and leaderboards, while also preserving all other non-reordered lines from the original file.
+ - Corrected logic for handling lines in the leaderboards list.
+ - Improved extraction of descriptions and values in both achievements and leaderboard sections to handle various conditions effectively.
