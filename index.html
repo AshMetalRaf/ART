@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +66,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
-        
+
         .reminder {
             color: #C59401;
             font-size: 1.0em;
@@ -111,7 +112,6 @@
             display: none;
         }
 
-        /* Highlight Text Styles */
         .highlight {
             background-color: #1A1A1A;
             color: white;
@@ -125,7 +125,6 @@
             justify-content: center;
             margin-top: 10px;
             border-bottom: 2px solid #444;
-            padding: 0 450px;
         }
 
         .tab {
@@ -142,7 +141,7 @@
         }
 
         .tab:hover {
-        background-color: #2c3e50;
+            background-color: #2c3e50;
         }
 
         .tab.active {
@@ -199,7 +198,6 @@
         #sortable-achievements li,
         #sortable-leaderboards li {
             padding: 8px;
-            background-color: #34495e;
             margin-bottom: 5px;
             border-radius: 5px;
             font-size: 1.2em;
@@ -210,9 +208,34 @@
             cursor: grab;
         }
 
+        /* Alternate Background Colors */
+        #sortable-achievements li:nth-child(odd),
+        #sortable-leaderboards li:nth-child(odd) {
+            background-color: #34495e;
+        }
+
+        #sortable-achievements li:nth-child(even),
+        #sortable-leaderboards li:nth-child(even) {
+            background-color: #2c3e50;
+        }
+
+        /* Hover effect */
         #sortable-achievements li:hover,
         #sortable-leaderboards li:hover {
             background-color: #2c3e50;
+        }
+
+        #sortable-achievements li:active {
+            cursor: grabbing;
+
+        }
+
+        #sortable-leaderboards li {
+            cursor: grab;
+        }
+
+        #sortable-leaderboards li:active {
+            cursor: grabbing;
         }
 
         /* Modal (background overlay) Styles */
@@ -233,15 +256,16 @@
 
         .modal-content {
             background-color: #2c3e50;
-            color: white;
+            color: #ecf0f1;
             margin: 5% auto;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             width: 80%;
-            max-width: 710px;
+            max-width: 850px;
             font-size: 1.2em;
             text-align: left;
             position: relative;
+            line-height: 1.3;
         }
 
         .modal-header {
@@ -286,15 +310,35 @@
             background-color: #555;
         }
 
+        /* Changelog Button Styles */
+        .changelog {
+            position: fixed;
+            bottom: 10px;
+            right: 0px;
+            color: #3498db;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .drag-ghost {
+            opacity: 0.4;
+            background-color: #34495e;
+            border-radius: 5px;
+
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
+
 <body>
     <!-- Main Container -->
     <div class="container">
         <!-- Main Title -->
         <h2 class="main-title">
             <span class="first-letter">A</span><span class="gradient-title">chievement
-            <span class="second-letter">R</span>eorder Tool</span>
+                <span class="second-letter">R</span>eorder Tool</span>
         </h2>
 
         <!-- Reminder Message -->
@@ -307,7 +351,8 @@
 
         <!-- Drag and Drop Area -->
         <div class="drag-area" id="dragArea">
-            Drag and drop <span class="highlight">[gameid]-User.txt</span> found inside <span class="highlight">RACache/Data/</span>
+            Drag and drop <span class="highlight">[gameid]-User.txt</span> found inside <span
+                class="highlight">RACache/Data/</span>
             <div class="file-info">or click to select a file</div>
         </div>
 
@@ -342,7 +387,9 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="modal-header">Readme</div>
-            <p>This Achievement Reorder Tool allows you to reorder the achievements in a .txt file. Simply drag and drop your file, and you will be able to rearrange the achievements before saving the changes into a new file.</p>
+            <p>This Achievement Reorder Tool allows you to reorder the achievements in a .txt file. Simply drag and drop
+                your file, and you will be able to rearrange the achievements before saving the changes into a new file.
+            </p>
             <p><strong>Steps:</strong></p>
             <ul>
                 <li>Drag and drop your achievement file or select it manually.</li>
@@ -350,6 +397,36 @@
                 <li>Click "Save File" to download the updated [gameid-User].txt file with your changes.</li>
                 <li>Replace the original file in the RACache/Data directory with the reordered version.</li>
             </ul>
+        </div>
+    </div>
+
+    <!-- Changelog text -->
+    <div class="changelog" id="changelogText">Changelog</div>
+
+    <!-- Changelog Modal -->
+    <div id="changelogModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="changelogClose">&times;</span>
+            <div class="modal-header">Changelog</div>
+            <p><strong>Version 0.1 (2025-01-07)</strong>
+                <li>Initial public release.</li>
+            <p><strong>Version 0.2 (2025-01-11)</strong>
+                <li>Improved the achievement text parsing to remove unnecessary parts (conditions, modifiers).</li>
+                <li>Display only relevant achievement title and description.</li>
+            <p><strong>Version 0.3 (2025-01-16)</strong>
+                <li>Added a dedicated list for leaderboards.</li>
+                <li>Implemented logic to separate achievements and leaderboards into their respective lists.</li>
+                <li>Reorganized layout for a more intuitive file upload and tab navigation experience.</li>
+                <li>The exported file now includes reordered achievements and leaderboards, while also preserving all
+                    other non-reordered lines from the original file.</li>
+                <li>Corrected logic for handling lines in the leaderboards list.</li>
+                <li>Improved extraction of descriptions and values in both achievements and leaderboard sections to
+                    handle various conditions effectively.</li>
+            <p><strong>Version 0.4 (2025-01-16)</strong>
+                <li>Introduced a Changelog modal window.</li>
+                <li>Added cursor-grabbing feedback for draggable elements.</li>
+                <li>Added alternating row colors for improved list readability.</li>
+                <li>Enhanced visuals for dragged items, making them clearly distinct from non-dragged items.</li>
         </div>
     </div>
 
@@ -393,49 +470,56 @@
         // Process Uploaded File
         function processFile(file) {
             if (!file.name.endsWith('.txt')) {
-                 alert('Please upload a valid .txt file.');
-                 return;
+                alert('Please upload a valid .txt file.');
+                return;
             }
 
             currentFileName = file.name; // Store the file name
             document.getElementById('saveButton').style.display = 'block'; // Show the save button
             dragArea.style.display = 'none'; // Hide the drag area
             document.querySelector('.tabs').style.display = 'flex'; // Show the tab navigation
-    
-        // Read the content of the file
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const content = e.target.result.split('\n').filter(line => line.trim() !== ''); // Process non-empty lines
-            fullFileContent = content;  // Store the entire file content
-            populateList(content); // Populate the lists with the content
-        };
-        reader.readAsText(file); // This reads the file as text
-    }
 
-    // Populate the Achievements and Leaderboards Lists
-    function populateList(content) {
-        const achievementsList = document.getElementById('sortable-achievements');
-        const leaderboardsList = document.getElementById('sortable-leaderboards');
-        achievementsList.innerHTML = '';
-        leaderboardsList.innerHTML = '';
+            // Read the content of the file
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result.split('\n').filter(line => line.trim() !== ''); // Process non-empty lines
+                fullFileContent = content;  // Store the entire file content
+                populateList(content); // Populate the lists with the content
+            };
+            reader.readAsText(file); // This reads the file as text
+        }
 
-        content.forEach(line => {
-            if (line.startsWith('111000')) {
-                const li = document.createElement('li');
-                li.textContent = extractReadablePart(line);
-                li.setAttribute('data-original', line);
-                achievementsList.appendChild(li);
-            } else if (line.startsWith('L111000')) {
-                const li = document.createElement('li');
-                li.textContent = extractReadablePart(line);
-                li.setAttribute('data-original', line);
-                leaderboardsList.appendChild(li);
-            }
-        });
+        // Populate the Achievements and Leaderboards Lists
+        function populateList(content) {
+            const achievementsList = document.getElementById('sortable-achievements');
+            const leaderboardsList = document.getElementById('sortable-leaderboards');
+            achievementsList.innerHTML = '';
+            leaderboardsList.innerHTML = '';
 
-            // Initialize sorting functionality for both lists
-            new Sortable(achievementsList, { animation: 150 });
-            new Sortable(leaderboardsList, { animation: 150 });
+            content.forEach(line => {
+                if (line.startsWith('111000')) {
+                    const li = document.createElement('li');
+                    li.textContent = extractReadablePart(line);
+                    li.setAttribute('data-original', line);
+                    achievementsList.appendChild(li);
+                } else if (line.startsWith('L111000')) {
+                    const li = document.createElement('li');
+                    li.textContent = extractReadablePart(line);
+                    li.setAttribute('data-original', line);
+                    leaderboardsList.appendChild(li);
+                }
+            });
+
+            // Create sortable for achievements
+            new Sortable(achievementsList, {
+                animation: 150,
+                ghostClass: 'drag-ghost'
+            });
+
+            // Create sortable for leaderboards
+            new Sortable(leaderboardsList, {
+                animation: 150
+            });
 
             // Set the "Achievements" tab as active by default
             document.getElementById('achievements').classList.add('active');
@@ -477,19 +561,19 @@
         function showReadmeModal() {
             document.getElementById('readmeModal').style.display = 'block';
         }
-    
+
         // Close Readme Modal
         function closeReadmeModal() {
             document.getElementById('readmeModal').style.display = 'none';
         }
-    
+
         // Close Modal when Clicking Outside
         function closeModalOnOutsideClick(event) {
             if (event.target === document.getElementById('readmeModal')) {
                 closeReadmeModal();
             }
         }
-        
+
         // Save Reordered List
         function saveFile() {
             const achievementItems = document.querySelectorAll('#sortable-achievements li');
@@ -519,7 +603,7 @@
                 }
             });
 
-            // Create a Blob with the updated content and trigger the file download
+            // Create a blob and trigger file download
             const blob = new Blob([newFileContent.join('\n')], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -529,6 +613,28 @@
             a.click();
             document.body.removeChild(a);
         }
+        // Changelog Modal Event Handlers
+        document.getElementById('changelogText').addEventListener('click', showChangelogModal);
+        document.getElementById('changelogClose').addEventListener('click', closeChangelogModal);
+
+        // Show Changelog Modal
+        function showChangelogModal() {
+            document.getElementById('changelogModal').style.display = 'block';
+        }
+
+        // Close Changelog Modal
+        function closeChangelogModal() {
+            document.getElementById('changelogModal').style.display = 'none';
+        }
+
+        // Close Modal when Clicking Outside
+        window.addEventListener('click', (event) => {
+            const changelogModal = document.getElementById('changelogModal');
+            if (event.target === changelogModal) {
+                closeChangelogModal();
+            }
+        });
     </script>
 </body>
+
 </html>
