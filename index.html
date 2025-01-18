@@ -7,329 +7,13 @@
     <title>Achievement & Leaderboard Reorder Tool</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons/css/all/all.css">
     <!-- External Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #1A1A1A;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transform: scale(0.8);
-            transform-origin: top;
-        }
-
-        /* Header and Title Styles */
-        .main-title {
-            font-size: 3.0em;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #C8C8C8;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .first-letter {
-            color: #3498db;
-            font-weight: bold;
-            font-family: 'Train One', sans-serif;
-        }
-
-        .second-letter {
-            color: #C59401;
-            font-weight: bold;
-            font-family: 'Train One', sans-serif;
-        }
-
-        .gradient-title {
-            font-weight: bold;
-            background: linear-gradient(to bottom, #eeeeee, #b4b4b4);
-            color: transparent;
-            background-clip: text;
-            -webkit-background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.10);
-        }
-
-        /* Container and Reminder Styles */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            background-color: rgba(22, 22, 22, 22);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        .reminder {
-            color: #C59401;
-            font-size: 1.0em;
-            font-weight: none;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        /* Readme Button Styles */
-        .readme-button {
-            background-color: #3498db;
-            padding: 7px 7px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.0em;
-            transition: background-color 0.3s ease;
-        }
-
-        .readme-button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Save Button styles */
-        .button {
-            margin: 20px 0;
-            padding: 12px 25px;
-            background-color: #16a085;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #1abc9c;
-        }
-
-        #saveButton {
-            display: none;
-        }
-
-        .highlight {
-            background-color: #1A1A1A;
-            color: white;
-            padding: 0 7px;
-            border-radius: 5px;
-        }
-
-        /* Tab Navigation Styles */
-        .tabs {
-            display: none;
-            justify-content: center;
-            margin-top: 10px;
-            border-bottom: 2px solid #444;
-        }
-
-        .tab {
-            font-family: 'Arial', sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 8px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #34495e;
-            color: rgb(219, 219, 219);
-            transition: background-color 0.3s ease;
-        }
-
-        .tab:hover {
-            background-color: #2c3e50;
-        }
-
-        .tab.active {
-            background-color: #435f7a;
-            border-bottom: 3px solid #3498db;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Drag and Drop Area */
-        .drag-area {
-            width: 100%;
-            padding: 120px;
-            border: 2px dashed #f1efec;
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 1.5em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        .drag-area .file-info {
-            font-size: 1.2em;
-            margin-top: 10px;
-            color: #bdc3c7;
-            font-style: italic;
-        }
-
-        /* Hidden file input */
-        #fileInput {
-            display: none;
-        }
-
-        /* Achievements and Leaderboards List Styling */
-        #sortable-achievements,
-        #sortable-leaderboards {
-            margin-top: 20px;
-            padding: 0;
-            list-style: none;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        #sortable-achievements li,
-        #sortable-leaderboards li {
-            padding: 8px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            font-size: 1.2em;
-            line-height: 1.2;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-            color: white;
-            transition: background-color 0.3s ease;
-            cursor: grab;
-        }
-
-        /* Alternate Background Colors */
-        #sortable-achievements li:nth-child(odd),
-        #sortable-leaderboards li:nth-child(odd) {
-            background-color: #34495e;
-        }
-
-        #sortable-achievements li:nth-child(even),
-        #sortable-leaderboards li:nth-child(even) {
-            background-color: #2c3e50;
-        }
-
-        /* Hover effect */
-        #sortable-achievements li:hover,
-        #sortable-leaderboards li:hover {
-            background-color: #2c3e50;
-        }
-
-        #sortable-achievements li:active {
-            cursor: grabbing;
-
-        }
-
-        #sortable-leaderboards li {
-            cursor: grab;
-        }
-
-        #sortable-leaderboards li:active {
-            cursor: grabbing;
-        }
-
-        /* Modal (background overlay) Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 199;
-            top: 0;
-            left: 1;
-            right: 1;
-            bottom: 1;
-            width: 125%;
-            height: 119%;
-            background-color: rgba(0, 0, 0, 0.5);
-            overflow: auto;
-            padding-top: 50px;
-        }
-
-        .modal-content {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 850px;
-            font-size: 1.2em;
-            text-align: left;
-            position: relative;
-            line-height: 1.3;
-        }
-
-        .modal-header {
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Custom Scrollbar Styles */
-        ::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #888888;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #555;
-        }
-
-        /* Changelog Button Styles */
-        .changelog {
-            position: fixed;
-            bottom: 10px;
-            right: 0px;
-            color: #3498db;
-            font-size: 0.9em;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 0.3s ease;
-        }
-
-        .drag-ghost {
-            opacity: 0.4;
-            background-color: #34495e;
-            border-radius: 5px;
-
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Default Theme  -->
+    <link id="theme-stylesheet" rel="stylesheet" href="styles-theme-1.css">
 </head>
 
 <body>
@@ -341,13 +25,17 @@
                 <span class="second-letter">R</span>eorder Tool</span>
         </h2>
 
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle-button">
+            <i class="fi fi-rr-cloud"></i></button>
+
         <!-- Reminder Message -->
         <div class="reminder">
             <p>Remember to back up the original file before making any changes!</p>
         </div>
 
         <!-- Readme Button -->
-        <button class="readme-button" id="readmeButton">Readme</button>
+        <button class="readme-button" id="readmeButton"><i class="fi fi-rr-document"></i>Readme</button>
 
         <!-- Drag and Drop Area -->
         <div class="drag-area" id="dragArea">
@@ -359,8 +47,9 @@
         <!-- File input (Hidden) -->
         <input type="file" id="fileInput" accept=".txt">
 
-        <!-- Save Button  -->
-        <button class="button" id="saveButton" onclick="saveFile()">Save File</button>
+        <!-- Save Button -->
+        <button class="button" id="saveButton" onclick="saveFile()">Save File
+            <i class="fi fi-rr-download"></i></button>
 
         <!-- Tab Navigation -->
         <div class="tabs">
@@ -427,214 +116,21 @@
                 <li>Added cursor-grabbing feedback for draggable elements.</li>
                 <li>Added alternating row colors for improved list readability.</li>
                 <li>Enhanced visuals for dragged items, making them clearly distinct from non-dragged items.</li>
+            <p><strong>Version 0.5 (2025-01-18)</strong>
+                <li>Added a theme toggle button to switch between the RA theme and the default/native theme.</li>
+                <li>Created functionality to dynamically colorize the content of list items.</li>
+                <li>Allowed each part of the text (title and description) to have different colors.</li>
+                <li>Added Flaticon icons for visual elements (Readme, save button, theme toggle button).</li>
+                <li>Allowed icons to appear dynamically based on the theme and context of the button.</li>
+                <li>Adjusted the changelog position for better visibility.</li>
+                <li>Improved the title and description separation.</li>
+                <li>Refactored code structure by separating HTML, CSS, and JavaScript into their own files for improved
+                    maintainability and
+                    readability.</li>
         </div>
     </div>
 
-    <script>
-        // Tab Navigation Functionality
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Activate the clicked tab and deactivate others
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                // Show the corresponding tab content
-                const tabContents = document.querySelectorAll('.tab-content');
-                tabContents.forEach(content => content.classList.remove('active'));
-                document.getElementById(tab.dataset.tab).classList.add('active');
-            });
-        });
-
-        // Global Variable to store the current file name
-        let currentFileName = "";
-
-        // File Processing Elements
-        const dragArea = document.getElementById('dragArea');
-        const fileInput = document.getElementById('fileInput');
-
-        // Event Listener for Drag and Drop and Click to Open File Dialog
-        dragArea.addEventListener('click', () => fileInput.click());
-        dragArea.addEventListener('dragover', (e) => e.preventDefault());
-        dragArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            processFile(e.dataTransfer.files[0]);
-        });
-
-        // Event Listener for File Input Change
-        fileInput.addEventListener('change', (e) => processFile(e.target.files[0]));
-
-        // Global variable to store the entire file content
-        let fullFileContent = [];
-
-        // Process Uploaded File
-        function processFile(file) {
-            if (!file.name.endsWith('.txt')) {
-                alert('Please upload a valid .txt file.');
-                return;
-            }
-
-            currentFileName = file.name; // Store the file name
-            document.getElementById('saveButton').style.display = 'block'; // Show the save button
-            dragArea.style.display = 'none'; // Hide the drag area
-            document.querySelector('.tabs').style.display = 'flex'; // Show the tab navigation
-
-            // Read the content of the file
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const content = e.target.result.split('\n').filter(line => line.trim() !== ''); // Process non-empty lines
-                fullFileContent = content;  // Store the entire file content
-                populateList(content); // Populate the lists with the content
-            };
-            reader.readAsText(file); // This reads the file as text
-        }
-
-        // Populate the Achievements and Leaderboards Lists
-        function populateList(content) {
-            const achievementsList = document.getElementById('sortable-achievements');
-            const leaderboardsList = document.getElementById('sortable-leaderboards');
-            achievementsList.innerHTML = '';
-            leaderboardsList.innerHTML = '';
-
-            content.forEach(line => {
-                if (line.startsWith('111000')) {
-                    const li = document.createElement('li');
-                    li.textContent = extractReadablePart(line);
-                    li.setAttribute('data-original', line);
-                    achievementsList.appendChild(li);
-                } else if (line.startsWith('L111000')) {
-                    const li = document.createElement('li');
-                    li.textContent = extractReadablePart(line);
-                    li.setAttribute('data-original', line);
-                    leaderboardsList.appendChild(li);
-                }
-            });
-
-            // Create sortable for achievements
-            new Sortable(achievementsList, {
-                animation: 150,
-                ghostClass: 'drag-ghost'
-            });
-
-            // Create sortable for leaderboards
-            new Sortable(leaderboardsList, {
-                animation: 150
-            });
-
-            // Set the "Achievements" tab as active by default
-            document.getElementById('achievements').classList.add('active');
-            document.getElementById('leaderboards').classList.remove('active');
-        }
-
-        // Extract the readable part of a line
-        function extractReadablePart(line) {
-            const lastColonIndex = line.lastIndexOf('":');
-            if (lastColonIndex !== -1) {
-                const substringAfterLastColon = line.substring(lastColonIndex + 2).trim();
-                const firstTripleColonIndex = substringAfterLastColon.indexOf(':::');
-                if (firstTripleColonIndex !== -1) {
-                    return substringAfterLastColon.substring(0, firstTripleColonIndex).trim();
-                }
-
-                const lastColonInDescription = substringAfterLastColon.lastIndexOf(':');
-                if (lastColonInDescription !== -1) {
-                    let description = substringAfterLastColon.substring(0, lastColonInDescription).trim();
-                    const colonIndex = description.indexOf(':');
-                    if (colonIndex !== -1) {
-                        description = description.substring(colonIndex + 1).trim();
-                    }
-                    return description;
-                }
-                return substringAfterLastColon;
-            }
-
-            const parts = line.split(':');
-            return parts.slice(2).join(':').split(':::')[0].trim(); // Default logic
-        }
-
-        // Modal Event Handlers
-        document.getElementById('readmeButton').addEventListener('click', showReadmeModal);
-        document.querySelector('.close').addEventListener('click', closeReadmeModal);
-        window.addEventListener('click', closeModalOnOutsideClick);
-
-        // Show Readme Modal
-        function showReadmeModal() {
-            document.getElementById('readmeModal').style.display = 'block';
-        }
-
-        // Close Readme Modal
-        function closeReadmeModal() {
-            document.getElementById('readmeModal').style.display = 'none';
-        }
-
-        // Close Modal when Clicking Outside
-        function closeModalOnOutsideClick(event) {
-            if (event.target === document.getElementById('readmeModal')) {
-                closeReadmeModal();
-            }
-        }
-
-        // Save Reordered List
-        function saveFile() {
-            const achievementItems = document.querySelectorAll('#sortable-achievements li');
-            const leaderboardItems = document.querySelectorAll('#sortable-leaderboards li');
-
-            const achievements = Array.from(achievementItems).map(item => item.getAttribute('data-original'));
-            const leaderboards = Array.from(leaderboardItems).map(item => item.getAttribute('data-original'));
-
-            const newFileContent = [];
-            let isAchievement = false;
-            let isLeaderboard = false;
-
-            // Rebuild the file content with the reordered sections
-            fullFileContent.forEach(line => {
-                if (line.startsWith('111000') && !isAchievement) {
-                    newFileContent.push(...achievements);
-                    isAchievement = true;
-                }
-
-                if (line.startsWith('L111000') && !isLeaderboard) {
-                    newFileContent.push(...leaderboards);
-                    isLeaderboard = true;
-                }
-
-                if (!line.startsWith('111000') && !line.startsWith('L111000')) {
-                    newFileContent.push(line);
-                }
-            });
-
-            // Create a blob and trigger file download
-            const blob = new Blob([newFileContent.join('\n')], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = currentFileName || 'reordered_achievements_and_leaderboards.txt'; // Default name if no file loaded
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-        // Changelog Modal Event Handlers
-        document.getElementById('changelogText').addEventListener('click', showChangelogModal);
-        document.getElementById('changelogClose').addEventListener('click', closeChangelogModal);
-
-        // Show Changelog Modal
-        function showChangelogModal() {
-            document.getElementById('changelogModal').style.display = 'block';
-        }
-
-        // Close Changelog Modal
-        function closeChangelogModal() {
-            document.getElementById('changelogModal').style.display = 'none';
-        }
-
-        // Close Modal when Clicking Outside
-        window.addEventListener('click', (event) => {
-            const changelogModal = document.getElementById('changelogModal');
-            if (event.target === changelogModal) {
-                closeChangelogModal();
-            }
-        });
-    </script>
+    <script src="scripts.js"></script>
 </body>
 
 </html>
