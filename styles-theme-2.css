@@ -1,26 +1,37 @@
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background: #1A1A1A;
-    color: #e5e7eb;
+    background: #1C1F26;
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     transform: scale(0.8);
     transform-origin: top;
 }
 
 /* Header and Title Styles */
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 50;
+    width: 125%;
+    height: 145px;
+    background-color: #16181D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
 .main-title {
     font-size: 3.0em;
-    margin-bottom: 20px;
-    text-align: center;
     color: #C8C8C8;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 .first-letter {
@@ -48,14 +59,15 @@ body {
 .container {
     width: 90%;
     max-width: 1200px;
-    background-color: rgba(22, 22, 22, 22);
+    background-color: #16181D;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    margin-top: 190px;
 }
 
 .reminder {
-    color: rgb(204, 153, 0);
+    color: #9FACC6;
     font-size: 1.0em;
     font-weight: none;
     margin-bottom: 20px;
@@ -64,55 +76,53 @@ body {
 
 /* Readme Button Styles */
 .readme-button {
-    background-color: #3498db;
+    background-color: #0c0d11;
     padding: 9px 20px;
-    color: white;
-    border: 1px solid rgb(64, 64, 64, 1);
+    color: #9FACC6;
+    border: 1px solid #9FACC6;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.0em;
     transition: background-color 0.3s ease;
 }
 
-.readme-button i { /* Readme Icon */
+.readme-button i {
+    /* Readme Icon */
     margin-right: 10px;
+    color: #25B4D0;
 }
 
 .readme-button:hover {
-    background-color: #2980b9;
+    color: #25B4D0;
+    border-color: #25B4D0;
 }
 
 /* Save Button styles */
 .button {
     margin: 10px 0;
     padding: 10px 25px;
-    background-color: #16a085;
-    color: white;
-    border: 1px;
+    background-color: #0c110f;
+    color: #9FACC6;
+    border: 1px solid #9FACC6;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.2em;
     transition: background-color 0.3s ease;
 }
 
-.button i { /* Save Icon */
+.button i {
+    /* Save Icon */
     margin-left: 5px;
+    color: #25B4D0;
 }
 
 .button:hover {
-    background-color: #1abc9c;
+    color: #25B4D0;
+    border-color: #25B4D0;
 }
 
 #saveButton {
     display: none;
-}
-
-.highlight {
-    background-color: #1A1A1A;
-    color: white;
-    border: 1px;
-    border-radius: 5px;
-    padding: 0 9px;
 }
 
 /* Tab Navigation Styles */
@@ -120,7 +130,7 @@ body {
     display: none;
     justify-content: center;
     margin-top: 10px;
-    border-bottom: 2px solid #444;
+    border-bottom: 2px solid #9FACC6;
 }
 
 .tab {
@@ -128,21 +138,22 @@ body {
     font-size: 16px;
     font-weight: none;
     padding: 8px 30px;
-    border: 1px;
+    border: 1px solid #9FACC6;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #34495e;
-    color: rgb(219, 219, 219);
-    transition: background-color 0.3s ease;
+    background-color: #0c0d11;
+    color: #9FACC6;
 }
 
 .tab:hover {
-    background-color: #2c3e50;
+    color: #25B4D0;
+    background-color: #1e2127;
+    border-color: #25B4D0;
 }
 
 .tab.active {
-    background-color: #435f7a;
-    border-bottom: 3px solid #3498db;
+    background-color: #0c0d11;
+    border-bottom: 3px solid #25B4D0;
 }
 
 .tab-content {
@@ -157,9 +168,9 @@ body {
 .drag-area {
     width: 100%;
     padding: 120px;
-    border: 2px dashed rgb(161, 161, 161);
-    background-color: #2c3e50;
-    color: #ecf0f1;
+    border: 2px dashed #9FACC6;
+    background-color: #0c0d11;
+    color: #9FACC6;
     border-radius: 8px;
     text-align: center;
     margin-top: 20px;
@@ -177,7 +188,14 @@ body {
 }
 
 .drag-area:hover {
-    border-color: rgb(238, 238, 238);
+    border-color: #25B4D0;
+}
+
+.highlight {
+    color: #25B4D0;
+    border: 1px solid rgb(64, 64, 64, 1);
+    border-radius: 5px;
+    padding: 0 9px;
 }
 
 /* Hidden file input */
@@ -198,7 +216,7 @@ body {
 /* Ensure the separator text is also white */
 #sortable-achievements li span,
 #sortable-leaderboards li span {
-    color: white !important;
+    color: #9FACC6 !important;
 
 }
 
@@ -218,23 +236,22 @@ body {
 /* Alternate Background Colors */
 #sortable-achievements li:nth-child(odd),
 #sortable-leaderboards li:nth-child(odd) {
-    background-color: #34495e;
+    background-color: #1e2127;
 }
 
 #sortable-achievements li:nth-child(even),
 #sortable-leaderboards li:nth-child(even) {
-    background-color: #2c3e50;
+    background-color: #16181D;
 }
 
 /* Hover effect */
 #sortable-achievements li:hover,
 #sortable-leaderboards li:hover {
-    background-color: #2c3e50;
+    background-color: #16181D;
 }
 
 #sortable-achievements li:active {
     cursor: grabbing;
-
 }
 
 #sortable-leaderboards li {
@@ -262,8 +279,8 @@ body {
 }
 
 .modal-content {
-    background-color: #2c3e50;
-    color: #ecf0f1;
+    background-color: #16181D;
+    color: #9FACC6;
     margin: 5% auto;
     padding: 30px;
     border-radius: 10px;
@@ -283,7 +300,7 @@ body {
 }
 
 .close {
-    color: #aaa;
+    color: #9FACC6;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -292,7 +309,7 @@ body {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #25B4D0;
     text-decoration: none;
     cursor: pointer;
 }
@@ -304,17 +321,17 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+    background-color: #1e2127;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #888888;
+    background-color: #9FACC6;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+    background-color: #25B4D0;
 }
 
 /* Changelog Button Styles */
@@ -322,7 +339,7 @@ body {
     position: fixed;
     bottom: -150px;
     right: -150px;
-    color: #3498db;
+    color: #9FACC6;
     font-size: 0.9em;
     cursor: pointer;
     text-decoration: underline;
@@ -340,12 +357,12 @@ body {
 /* Style for the Theme Toggle Button */
 .theme-toggle-button {
     position: fixed;
-    top: 40px;
+    top: 90px;
     right: -150px;
     z-index: 1000;
     background-color: #1A1A1A;
-    color: white;
-    border: 1px solid rgb(150, 150, 150);
+    color: #9FACC6;
+    border: 1px solid #9FACC6;
     padding: 5px 10px;
     font-size: 1.0em;
     cursor: pointer;
@@ -354,15 +371,19 @@ body {
 }
 
 .theme-toggle-button:hover {
-    border-color: rgb(238, 238, 238);
+    border-color: #25B4D0;
     transform: scale(1.05);
 }
 
 .theme-toggle-button:active {
-    background-color: rgb(238, 238, 238);
+    background-color: #25B4D0;
 }
 
 .theme-toggle-button:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#theme-toggle:hover i {
+    color: #25B4D0;
 }
