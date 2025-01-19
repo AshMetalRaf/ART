@@ -29,3 +29,10 @@
   - Adjusted the changelog position for better visibility.
   - Improved the title and description separation.
   - Refactored code structure by separating HTML, CSS, and JavaScript into their own files for improved maintainability and readability.
+
+* Version 0.6 (2025-01-19)
+  - Resolved layout issues that caused content to clip and hinder readability.
+  - Refined the title placement by moving it from the container to a dedicated header background, improving overall visual clarity and user experience.
+  - Improved visual consistency of the default theme.
+  - Redesigned Theme 2 into a "Midnight" atmosphere.
+  - Added custom browser tab icon.
