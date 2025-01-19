@@ -121,16 +121,6 @@ function populateList(content) {
     document.getElementById('leaderboards').classList.remove('active');
 }
 
-// Function to generate a random color
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
 // Extract the readable part of a line
 function extractReadablePart(line) {
     const lastColonIndex = line.lastIndexOf('":');
@@ -241,14 +231,23 @@ window.addEventListener('click', (event) => {
 });
 
 // Function to toggle between Themes
-const themeToggleButton = document.getElementById('theme-toggle');
-const themeLink = document.getElementById('theme-stylesheet');  // Reference to the link tag for the stylesheet
+const themeToggle = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+const themeStylesheet = document.getElementById("theme-stylesheet");
 
-themeToggleButton.addEventListener('click', function () {
-    // Check the current theme and toggle the stylesheet link
-    if (themeLink.getAttribute('href') === 'styles-theme-2.css') {
-        themeLink.setAttribute('href', 'styles-theme-1.css'); // Switch to theme 1
+// Function to toggle theme
+themeToggle.addEventListener("click", () => {
+    const isDefaultTheme = themeStylesheet.getAttribute("href") === "styles-theme-1.css";
+
+    if (isDefaultTheme) {
+        // Switch to second theme
+        themeStylesheet.setAttribute("href", "styles-theme-2.css");
+        themeIcon.classList.remove("fi-rr-cloud");
+        themeIcon.classList.add("fi-rr-moon");
     } else {
-        themeLink.setAttribute('href', 'styles-theme-2.css'); // Switch to theme 2
+        // Switch back to default theme
+        themeStylesheet.setAttribute("href", "styles-theme-1.css");
+        themeIcon.classList.remove("fi-rr-moon");
+        themeIcon.classList.add("fi-rr-cloud");
     }
 });
