@@ -2,25 +2,36 @@
 body {
     font-family: 'Arial', sans-serif;
     background: #1A1A1A;
-    color: #e5e7eb;
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     transform: scale(0.8);
     transform-origin: top;
 }
 
 /* Header and Title Styles */
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 50;
+    width: 125%;
+    height: 145px;
+    background-color: rgb(22, 22, 22, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
 .main-title {
     font-size: 3.0em;
-    margin-bottom: 20px;
-    text-align: center;
     color: #C8C8C8;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 .first-letter {
@@ -52,6 +63,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    margin-top: 190px;
 }
 
 .reminder {
@@ -77,6 +89,7 @@ body {
 .readme-button i {
     /* Readme Icon */
     margin-right: 10px;
+    color: #4ca3f5;
 }
 
 .readme-button:hover {
@@ -100,6 +113,7 @@ body {
 .button i {
     /* Save Icon */
     margin-left: 5px;
+    color: #4ca3f5;
 }
 
 .button:hover {
@@ -109,13 +123,6 @@ body {
 
 #saveButton {
     display: none;
-}
-
-.highlight {
-    color: rgb(204, 153, 0);
-    border: 1px solid rgb(64, 64, 64, 1);
-    border-radius: 5px;
-    padding: 0 9px;
 }
 
 /* Tab Navigation Styles */
@@ -182,6 +189,13 @@ body {
 
 .drag-area:hover {
     border-color: rgb(238, 238, 238);
+}
+
+.highlight {
+    color: rgb(204, 153, 0);
+    border: 1px solid rgb(64, 64, 64, 1);
+    border-radius: 5px;
+    padding: 0 9px;
 }
 
 /* Hidden file input */
@@ -337,7 +351,7 @@ body {
 /* Style for the Theme Toggle Button */
 .theme-toggle-button {
     position: fixed;
-    top: 40px;
+    top: 90px;
     right: -150px;
     z-index: 1000;
     background-color: #1A1A1A;
@@ -362,4 +376,8 @@ body {
 .theme-toggle-button:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#theme-toggle:hover i {
+    color: rgb(238, 238, 238);
 }
