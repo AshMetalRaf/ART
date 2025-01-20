@@ -36,3 +36,8 @@
   - Improved visual consistency of the default theme.
   - Redesigned Theme 2 into a "Midnight" atmosphere.
   - Added custom browser tab icon.
+
+* Version 0.7 (2025-01-20)
+  - Added a restore button that appears after file load, restoring the list order with a confirmation toast.
+  - Replaced alert with toast for invalid file uploads.
+  - Fixed issue with text wrapping under bullets in modals.
