@@ -36,13 +36,18 @@ let fullFileContent = [];
 
 // Process Uploaded File
 function processFile(file) {
+    const fileErrorToast = document.getElementById('fileErrorToast');
     if (!file.name.endsWith('.txt')) {
-        alert('Please upload a valid .txt file.');
+        fileErrorToast.classList.add('show');
+        setTimeout(() => {
+            fileErrorToast.classList.remove('show');
+        }, 2000);
         return;
     }
 
     currentFileName = file.name; // Store the file name
     document.getElementById('saveButton').style.display = 'block'; // Show the save button
+    document.getElementById('restoreButton').style.display = 'block'; // Show the restore button
     dragArea.style.display = 'none'; // Hide the drag area
     document.querySelector('.tabs').style.display = 'flex'; // Show the tab navigation
 
@@ -85,7 +90,7 @@ function populateList(content) {
 
             // Span for the separator with its own color
             const separator = document.createElement('span');
-            separator.textContent = ' • ';  // Adjust separator as needed
+            separator.textContent = ' • ';  // Separator
             separator.style.color = '#aaaaaa';
 
             // Append parts and separator to the list item
@@ -93,9 +98,9 @@ function populateList(content) {
             li.appendChild(separator);
             li.appendChild(part2);
         } else {
-            // If there's only one part, just apply a single color
+            // Apply a single color if there's only one part
             li.textContent = readablePart;
-            li.style.color = '#cc9900';  // Apply a color if there's only one part
+            li.style.color = '#cc9900';
         }
 
         if (line.startsWith('111000')) {
@@ -250,4 +255,27 @@ themeToggle.addEventListener("click", () => {
         themeIcon.classList.remove("fi-rr-moon");
         themeIcon.classList.add("fi-rr-cloud");
     }
+});
+
+// Restore Button Event Listener
+const restoreButton = document.getElementById('restoreButton');
+restoreButton.addEventListener('click', restoreOriginalOrder);
+
+// Restore Original Order Function
+function restoreOriginalOrder() {
+    populateList(fullFileContent);
+    showToast();
+}
+
+// Function to display the toast notification
+function showToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2000);
+}
+
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
 });
