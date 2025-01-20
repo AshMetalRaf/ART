@@ -55,7 +55,11 @@
 
         <!-- Save Button -->
         <button class="button" id="saveButton" onclick="saveFile()">Save File
-            <i class="fi fi-rr-download"></i></button>
+            <i class="fi fi-rr-download"></i>
+        </button>
+
+        <!-- Restore Button -->
+        <button class="button" id="restoreButton"><i class="fi fi-rr-refresh"></i></button>
 
         <!-- Tab Navigation -->
         <div class="tabs">
@@ -94,9 +98,21 @@
                 <li>Click "Save File" to download the updated [gameid-User].txt file with your changes.</li>
                 <li>Replace the original file in the RACache/Data directory with the reordered version.</li>
             </ul>
-            <p>If you encounter any visual issues when loading .txt file, please contact me on Discord: ash90s
+            <p>If you encounter any visual issues when loading a .txt file, such as modifiers, please contact
+                me
+                on Discord: ash90s
                 (AshMetalRaf).</p>
         </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        The lists have been restored to their original order.
+    </div>
+
+    <!-- Toast Notification (File Error Message) -->
+    <div id="fileErrorToast" class="toast">
+        Please upload a valid .txt file.
     </div>
 
     <!-- Changelog text -->
@@ -144,11 +160,16 @@
                 <li>Refined the title placement by moving it from the container to a dedicated header background,
                     improving overall visual
                     clarity and user
-                    experience</li>
-                <li>Improved visual consistency of the default theme</li>
+                    experience.</li>
+                <li>Improved visual consistency of the default theme.</li>
                 <li>Redesigned Theme 2 into a "Midnight" atmosphere.
                 </li>
                 <li>Added custom browser tab icon.</li>
+            <p><strong>Version 0.7 (2025-01-20)</strong>
+                <li>Added a restore button that appears after file load, restoring the list order with a confirmation
+                    toast.</li>
+                <li>Replaced alert with toast for invalid file uploads.</li>
+                <li>Fixed issue with text wrapping under bullets in modals.</li>
         </div>
     </div>
 
