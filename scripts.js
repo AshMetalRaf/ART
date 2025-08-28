@@ -42,6 +42,7 @@ function processFile(file) {
     document.getElementById('restoreButton').style.display = 'block';
     dragArea.style.display = 'none';
     document.querySelector('.tabs').style.display = 'flex';
+    document.querySelectorAll('.list-header').forEach(h => h.style.display = 'grid');
 
     // read the file content
     const reader = new FileReader();
@@ -72,6 +73,9 @@ function populateList(content) {
             : [readablePart];
 
         if (parts.length === 2) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('achievement-row');
+
             const part1 = document.createElement('span');
             part1.textContent = parts[0];
             part1.classList.add('achievement-title');
@@ -80,17 +84,14 @@ function populateList(content) {
             part2.textContent = parts[1];
             part2.classList.add('achievement-description');
 
-            const separator = document.createElement('span');
-            separator.textContent = ' • ';
-            separator.classList.add('separator');
-
-            li.appendChild(part1);
-            li.appendChild(separator);
-            li.appendChild(part2);
+            wrapper.appendChild(part1);
+            wrapper.appendChild(part2);
+            li.appendChild(wrapper);
         } else {
             li.textContent = readablePart;
             li.style.color = '#cc9900';
         }
+
 
         if (line.startsWith('111000')) {
             achievementsList.appendChild(li);

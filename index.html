@@ -34,7 +34,10 @@
             <i class="fi fi-rr-download"></i>
         </button>
 
-        <button class="button" id="restoreButton"><i class="fi fi-rr-refresh"></i></button>
+        <button class="button" id="restoreButton">
+            <i class="fi fi-rr-refresh"></i> Restore
+        </button>
+
 
         <div class="tabs">
             <button class="tab achievements-tab active" data-tab="achievements">Achievements</button>
@@ -42,24 +45,29 @@
         </div>
 
         <div id="achievements" class="tab-content active">
-            <ul id="sortable-achievements">
-            </ul>
+            <div class="list-header">
+                <span class="header-title">Title</span>
+                <span class="header-description">Description</span>
+            </div>
+            <ul id="sortable-achievements"></ul>
         </div>
 
         <div id="leaderboards" class="tab-content">
-            <ul id="sortable-leaderboards">
-            </ul>
+            <div class="list-header">
+                <span class="header-title">Title</span>
+                <span class="header-description">Description</span>
+            </div>
+            <ul id="sortable-leaderboards"></ul>
         </div>
-    </div>
 
-    <div id="toast" class="toast">
-        The lists have been restored to their original order.
-    </div>
+        <div id="toast" class="toast">
+            The lists have been restored to their original order.
+        </div>
 
-    <div id="fileErrorToast" class="toast">
-        Please upload a valid .txt file.
-    </div>
-    <script src="scripts.js"></script>
+        <div id="fileErrorToast" class="toast">
+            Please upload a valid .txt file.
+        </div>
+        <script src="scripts.js"></script>
 </body>
 
 </html>

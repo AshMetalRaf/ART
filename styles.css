@@ -53,13 +53,13 @@ body {
 }
 
 .container {
-    width: 100%;
-    max-width: 1300px;
+    width: 150%;
+    max-width: 1700px;
     background-color: rgb(34, 34, 34);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-    margin-top: 190px;
+    margin-top: 200px;
     position: relative;
 }
 
@@ -73,11 +73,14 @@ body {
     cursor: pointer;
     font-size: 1.2em;
     transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 .button i {
-    margin-left: 5px;
+    margin-right: 5px;
     color: #4ca3f5;
+    transition: color 0.3s ease;
 }
 
 .button:hover {
@@ -105,7 +108,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     background-color: #161616;
-    color: #cc9900;
+    color: #bbb;
 }
 
 .tab:hover {
@@ -116,7 +119,7 @@ body {
 
 .tab.active {
     background-color: #161616;
-    border-bottom: 3px solid rgb(204, 153, 0);
+    border-bottom: 3px solid #bbb;
     font-weight: bold;
 }
 
@@ -130,21 +133,21 @@ body {
 
 .drag-area {
     width: 100%;
-    padding: 120px;
-    border: 2px dashed rgb(161, 161, 161);
+    padding: 160px;
+    border: 2.5px dashed rgb(161, 161, 161);
     background-color: #161616;
     color: rgb(44, 151, 250);
     border-radius: 8px;
     text-align: center;
     margin-top: 20px;
-    font-size: 1.5em;
+    font-size: 1.4em;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-sizing: border-box;
 }
 
 .drag-area .file-info {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-top: 10px;
     color: #a2a6a8;
     font-style: italic;
@@ -176,14 +179,13 @@ body {
 
 #sortable-achievements li,
 #sortable-leaderboards li {
-    padding: 8px;
+    padding: 5px;
     margin-bottom: 5px;
     border-radius: 5px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.2;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     color: #2c97fa;
-    transition: background-color 0.3s ease;
     cursor: grab;
 }
 
@@ -199,7 +201,7 @@ body {
 
 #sortable-achievements li:hover,
 #sortable-leaderboards li:hover {
-    background-color: #222222;
+    background-color: #1b1b1b;
 }
 
 #sortable-achievements li:active {
@@ -220,12 +222,12 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+    background-color: #404040;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #888888;
+    background-color: #d3d3d3;
     border-radius: 10px;
 }
 
@@ -250,11 +252,20 @@ body {
     border: none;
     padding: 0;
     color: #c2c2c2;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 #restoreButton i {
-    font-size: 15px;
+    font-size: 13px;
+    margin-left: 4px;
     color: #c2c2c2;
+    transition: color 0.3s ease;
+}
+
+#restoreButton:hover {
+    color: rgb(238, 238, 238);
 }
 
 #restoreButton:hover i {
@@ -291,14 +302,62 @@ body {
     bottom: 20px;
 }
 
+.achievement-row {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 20px;
+    align-items: start;
+    position: relative;
+}
+
 .achievement-title {
     color: #cc9900;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 1px;
+    font-size: 0.95em;
 }
 
 .achievement-description {
     color: #2c97fa;
+    line-height: 1.0;
+    letter-spacing: 0.5px;
+    font-size: 0.95em;
 }
 
-.separator {
-    color: #aaaaaa;
+.list-header {
+    display: none;
+    grid-template-columns: 400px 1fr;
+    gap: 20px;
+    padding: 5px 5px;
+    margin-top: 5px;
+    border-bottom: 2px solid #444;
+    font-size: 0.95em;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    align-items: center;
+    position: relative;
+}
+
+.list-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 400px;
+    width: 1px;
+    background-color: #444;
+}
+
+.header-title {
+    text-align: left;
+    color: #bbb;
+}
+
+.header-description {
+    text-align: left;
+    color: #bbb;
 }
