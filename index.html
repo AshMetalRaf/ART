@@ -13,30 +13,23 @@
 </head>
 
 <body>
-    <div class="header-background">
-        <h2 class="main-title">
-            <span class="first-letter">A</span><span class="gradient-title">chievement
-                <span class="second-letter">R</span>eorder Tool</span>
-        </h2>
-    </div>
-    <!-- main -->
     <div class="container">
 
-        <div class="drag-area" id="dragArea">
-            Drag and drop <span class="highlight">[gameid]-User.txt</span> found inside <span
-                class="highlight">RACache/Data/</span>
-            <div class="file-info">or click to select a file</div>
+        <p class="file-instruction">Choose the file <strong>[gameid]-User.txt</strong> found inside
+            <strong>RACache/Data/</strong>
+        </p>
+
+        <input type="file" id="artFileInput" accept=".txt">
+
+        <div class="action-buttons">
+            <button class="button" id="saveButton" onclick="saveFile()">Save File
+                <i class="fi fi-rr-download"></i>
+            </button>
+
+            <button class="button" id="restoreButton">Restore
+                <i class="fi fi-rr-refresh"></i>
+            </button>
         </div>
-
-        <!-- hidden on main -->
-        <input type="file" id="fileInput" accept=".txt">
-        <button class="button" id="saveButton" onclick="saveFile()">Save File
-            <i class="fi fi-rr-download"></i>
-        </button>
-
-        <button class="button" id="restoreButton">
-            <i class="fi fi-rr-refresh"></i> Restore
-        </button>
 
 
         <div class="tabs">
@@ -46,14 +39,17 @@
 
         <div id="achievements" class="tab-content active">
             <div class="list-header">
+                <span class="header-number">#</span>
                 <span class="header-title">Title</span>
                 <span class="header-description">Description</span>
             </div>
             <ul id="sortable-achievements"></ul>
+                   
         </div>
 
         <div id="leaderboards" class="tab-content">
             <div class="list-header">
+                <span class="header-number">#</span>
                 <span class="header-title">Title</span>
                 <span class="header-description">Description</span>
             </div>
